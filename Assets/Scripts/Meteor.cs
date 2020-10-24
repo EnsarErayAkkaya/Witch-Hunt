@@ -18,6 +18,8 @@ public class Meteor : MonoBehaviour
     public float startDisappearAfter;
     public Vector3 disappearPos;
     public GameObject smokeParticle;
+    public GameObject impactPrefab;
+
     private void Start() {
         damager = GetComponent<Damager>();
     }
@@ -49,6 +51,8 @@ public class Meteor : MonoBehaviour
     {
         if( other.CompareTag("Ground") )
         {
+            GameObject impactVFX = Instantiate(impactPrefab,transform.position,Quaternion.identity);
+            Destroy(impactVFX,3);
             mesh.mesh = crushedMeteor;
             collider.enabled = false;
             StartCoroutine( Disappear() );
