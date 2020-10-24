@@ -31,7 +31,7 @@ public class Health : MonoBehaviour
     {
         if(currentHealth <= 0)
         {
-            Debug.Log("Game Over!");
+            Debug.Log(gameObject.name+ " Died!");
         }
     }
 }

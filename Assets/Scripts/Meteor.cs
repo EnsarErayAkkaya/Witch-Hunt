@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Meteor : MonoBehaviour
 {
-    public Damager damager;
+    public GameObject attackPointImagePrefab;
+    private GameObject attackPointImage;
+    private Damager damager;
     public Vector3 attackPoint;
     public Vector3 attackPointOffset;
     public Mesh crushedMeteor;
     public MeshFilter mesh;
-    public float fallTime;
+    public float waitBeforeFallTime;
+    public float meteorFallTime;
     public Collider collider;
     public float disappearDuration;
     public float startDisappearAfter;
@@ -20,17 +23,23 @@ public class Meteor : MonoBehaviour
     public void Set(Vector3 attackPoint)
     {
         this.attackPoint = attackPoint;
+        
+        attackPointImage = Instantiate(attackPointImagePrefab);
+        attackPointImage.transform.position = attackPoint + new Vector3(0, .1f, 0);
+
         transform.position = attackPoint + attackPointOffset;
+
         mesh.gameObject.SetActive(true);
         StartCoroutine( Attack() );
     }
     IEnumerator Attack()
     {
+        yield return new WaitForSeconds(waitBeforeFallTime);
         this.attackPoint.y = 0;
         float t = 0;
-        while (t < fallTime)
+        while (t < meteorFallTime)
         {
-            t += Time.deltaTime / (Time.timeScale * fallTime);
+            t += Time.deltaTime * (Time.timeScale / meteorFallTime);
             transform.position = Vector3.Lerp(transform.position, attackPoint, t);
             yield return null;
         }
@@ -59,6 +68,7 @@ public class Meteor : MonoBehaviour
             mesh.transform.position = Vector3.Lerp(mesh.transform.position, disappearPos, t);
             yield return null;
         }
+        Destroy(attackPointImage);
         Destroy(gameObject);
     }   
 }

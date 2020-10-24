@@ -58,7 +58,8 @@ public class WitchAttack : MonoBehaviour
 
     public void MeteorAttack(Vector3 attackPoint)
     {
-        Instantiate(meteor).GetComponent<Meteor>().Set(attackPoint);
+        Transform m = Instantiate(meteor).transform;
+        m.GetComponent<Meteor>().Set(attackPoint);
     }
 }
 

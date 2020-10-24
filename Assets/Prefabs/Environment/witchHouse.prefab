@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7255664903230113607}
   - component: {fileID: 6166825268635755475}
   - component: {fileID: 4922650006555084746}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4906205220513763157}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: witchHouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}

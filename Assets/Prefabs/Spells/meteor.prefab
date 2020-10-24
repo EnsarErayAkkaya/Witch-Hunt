@@ -128,14 +128,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef44aa6c9d98ac4fa3beceab717895f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damager: {fileID: 0}
+  attackPointImagePrefab: {fileID: 7942690849524181556, guid: 8cd6d8e3f21676846a6f59b9ab3c104f, type: 3}
   attackPoint: {x: 0, y: 0, z: 0}
   attackPointOffset: {x: 0, y: 10, z: 5}
   crushedMeteor: {fileID: -2432090755550338912, guid: 747e557865657e645b1e8b682dc2fcc7, type: 3}
   mesh: {fileID: 4912650750192630015}
-  fallTime: 5
+  waitBeforeFallTime: 1
+  meteorFallTime: 2
   collider: {fileID: 3450249754473444067}
-  disappearDuration: 3
+  disappearDuration: 1
   startDisappearAfter: 2
   disappearPos: {x: 0, y: -3, z: 0}
 --- !u!114 &7899852085683658138
@@ -151,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageAmount: 10
+  damageInterval: 1
 --- !u!135 &3450249754473444067
 SphereCollider:
   m_ObjectHideFlags: 0
