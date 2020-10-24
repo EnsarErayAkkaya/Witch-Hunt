@@ -10,15 +10,16 @@ public class WitchAttack : MonoBehaviour
     public AttackType[] attackTypes;
     public AttackType nextAttackType;
     public bool willAttack, cancelAttackTimer;
-    public GameObject meteor;
+    public GameObject meteor,iceShard;
 
     private void Start() 
     {
         currentAttackSpeed = normalAttackSpeed;
-        StartCoroutine( Attacker() );
+        ChooseNextAttack();
+        StartCoroutine( AttackRoutine() );
     }
 
-    IEnumerator Attacker()
+    IEnumerator AttackRoutine()
     {
         float t = 0;
         while (t < currentAttackSpeed)
@@ -42,18 +43,25 @@ public class WitchAttack : MonoBehaviour
             cancelAttackTimer = false;
         }
     }
-
-    public void Attack()
+    public void AttackCall()
     {
         Debug.Log("attack!");
         switch (nextAttackType)
         {
             case AttackType.Meteor:
                 MeteorAttack(player.transform.position);
-            break;            
+            break;
+            case AttackType.IceShard:
+                IceAttack(player.transform.position);
+            break;           
         }
         cancelAttackTimer = false;
-        StartCoroutine( Attacker() );
+        ChooseNextAttack();
+    }
+    void Attack()
+    {
+        AttackCall();
+        StartCoroutine( AttackRoutine() );
     }
 
     public void MeteorAttack(Vector3 attackPoint)
@@ -61,9 +69,18 @@ public class WitchAttack : MonoBehaviour
         Transform m = Instantiate(meteor).transform;
         m.GetComponent<Meteor>().Set(attackPoint);
     }
+    public void IceAttack(Vector3 attackPoint)
+    {
+        Transform m = Instantiate(iceShard).transform;
+        m.GetComponent<IceShard>().Set(attackPoint);
+    }
+    void ChooseNextAttack()
+    {
+        nextAttackType = attackTypes[Random.Range(0,attackTypes.Length)];
+    }
 }
 
 public enum AttackType
 {
-    Meteor
+    Meteor,IceShard
 }

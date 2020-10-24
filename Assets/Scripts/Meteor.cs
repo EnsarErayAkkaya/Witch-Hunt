@@ -17,6 +17,7 @@ public class Meteor : MonoBehaviour
     public float disappearDuration;
     public float startDisappearAfter;
     public Vector3 disappearPos;
+    public GameObject smokeParticle;
     private void Start() {
         damager = GetComponent<Damager>();
     }
@@ -60,6 +61,7 @@ public class Meteor : MonoBehaviour
     IEnumerator Disappear()
     {
         yield return new WaitForSeconds(startDisappearAfter);
+        Destroy(smokeParticle);
         float t = 0;
         disappearPos = mesh.transform.position + disappearPos;
         while(t < disappearDuration)

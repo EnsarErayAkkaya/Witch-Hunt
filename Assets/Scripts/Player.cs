@@ -4,15 +4,41 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public WitchAttack witchAttack;
+    public float mockCooldown;
+    public float mockedAttackInterval;
+    public bool canMock;
+    private void Start() {
+        canMock = true;
+        witchAttack = FindObjectOfType<WitchAttack>();
+    }
+    private void Update() {
+        Mock();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Mock()
     {
+        if( Input.GetKeyDown(KeyCode.E) && canMock )
+        {
+            canMock = false;
+            StartCoroutine( StartMock() );
+            
+            Debug.Log("HAHAHAHAHAA!");
+            StartCoroutine( MockCooldownCounter() );
+        }
+    }
+    IEnumerator StartMock()
+    {
+        witchAttack.AttackCall();
+        yield return new WaitForSeconds(mockedAttackInterval);
+        witchAttack.AttackCall();
+        yield return new WaitForSeconds(mockedAttackInterval);
+        witchAttack.AttackCall();
         
+    }
+    IEnumerator MockCooldownCounter()
+    {
+        yield return new WaitForSeconds(mockCooldown);
+        canMock = true;
     }
 }
