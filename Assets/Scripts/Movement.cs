@@ -27,17 +27,21 @@ public class Movement : MonoBehaviour
     /////// -------- ///////
     public string HORIZONTAL_AXIS = "Horizontal";
     public string VERTICAL_AXIS = "Vertical";
-
-    bool isGrounded;
-
+    ////// ROLL ///////
+    public float rollSpeed;
+    public float rollDuration;
+    public float rollCooldown;
+    public bool canRoll;
+    
+    ////// -------- ///////
     void Update()
     {        
 
-        this.isGrounded = controller.isGrounded;
+
+        Roll();
 
         MovementAndRotation();
 
-        moveVector = desiredMoveDirection.normalized * currentSpeed;
         controller.Move(moveVector * Time.deltaTime);
     }
     void MovementAndRotation()
@@ -76,5 +80,39 @@ public class Movement : MonoBehaviour
             currentSpeed -= speedDecrement * Time.deltaTime;
             currentSpeed = Mathf.Clamp( currentSpeed, 0, maxSpeed );
         }
+
+        moveVector = desiredMoveDirection.normalized * currentSpeed;
+    }
+    void Roll()
+    {
+        if( Input.GetKeyDown(KeyCode.Space) && canRoll )
+        {
+            canMove = false;
+            canRoll = false;
+            animator.SetTrigger("roll");
+            StartCoroutine( Roller() );
+        }
+    }
+    IEnumerator Roller()
+    {
+        float t = 0;
+        while (t < rollDuration)
+        {
+            t += Time.deltaTime;
+            moveVector = desiredMoveDirection.normalized * rollSpeed; 
+            yield return null;
+        }
+        canMove = true;
+        StartCoroutine( RollCooldownCounter() );
+    }
+    IEnumerator RollCooldownCounter()
+    {
+        float t = 0;
+        while (t < rollCooldown)
+        {
+            t += Time.deltaTime;
+            yield return null;
+        }
+        canRoll = true;
     }
 }

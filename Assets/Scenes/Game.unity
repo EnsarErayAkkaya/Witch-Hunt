@@ -1895,6 +1895,10 @@ MonoBehaviour:
   moveMagnitude: 0
   HORIZONTAL_AXIS: Horizontal
   VERTICAL_AXIS: Vertical
+  rollSpeed: 14
+  rollDuration: 0.52
+  rollCooldown: 3
+  canRoll: 1
 --- !u!143 &666285639
 CharacterController:
   m_ObjectHideFlags: 0
