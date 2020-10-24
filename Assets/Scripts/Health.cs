@@ -13,6 +13,7 @@ public class Health : MonoBehaviour
           return;  
         } 
         currentHealth -= amount;
+        Debug.Log(currentHealth);
         currentHealth = currentHealth < 0 ? 0 : currentHealth > maxHealth ? maxHealth : currentHealth;
         Die();
     }

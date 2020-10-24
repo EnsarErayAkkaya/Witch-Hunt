@@ -33,16 +33,16 @@ public class Movement : MonoBehaviour
     public float rollCooldown;
     public bool canRoll;
     
-    ////// -------- ///////
-    void Update()
+    ////// -------- ///////    
+    private void Update() 
     {        
-
-
         Roll();
 
         MovementAndRotation();
-
-        controller.Move(moveVector * Time.deltaTime);
+    }
+    void FixedUpdate()
+    {
+        controller.Move(moveVector * Time.deltaTime);   
     }
     void MovementAndRotation()
     {
@@ -107,12 +107,7 @@ public class Movement : MonoBehaviour
     }
     IEnumerator RollCooldownCounter()
     {
-        float t = 0;
-        while (t < rollCooldown)
-        {
-            t += Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSeconds(rollCooldown);
         canRoll = true;
     }
 }
