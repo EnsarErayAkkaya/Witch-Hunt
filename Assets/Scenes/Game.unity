@@ -653,7 +653,7 @@ MonoBehaviour:
   normalAttackSpeed: 3
   attackTypes: 0000000001000000
   nextAttackType: 1
-  willAttack: 1
+  willAttack: 0
   cancelAttackTimer: 0
   meteor: {fileID: 8052988184169474647, guid: 4a81816918d1a664ea2c1e18a398d572, type: 3}
   iceShard: {fileID: 6882544870680057535, guid: 8d357e5f8fde6bf4daeff1aba9b8b8d3, type: 3}

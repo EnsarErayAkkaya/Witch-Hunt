@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Meteor : MonoBehaviour
+public class Lightning : MonoBehaviour
 {
     public GameObject attackPointImagePrefab;
     private GameObject attackPointImage;
     private Damager damager;
     public Vector3 attackPoint;
     public Vector3 attackPointOffset;
-    public Mesh crushedMeteor;
     public MeshFilter mesh;
     public float waitBeforeFallTime;
-    public float meteorFallTime;
+    public float cloudFallTime;
     public Collider collider;
     public float disappearDuration;
     public float startDisappearAfter;
@@ -40,9 +39,9 @@ public class Meteor : MonoBehaviour
         yield return new WaitForSeconds(waitBeforeFallTime);
         this.attackPoint.y = 0;
         float t = 0;
-        while (t < meteorFallTime)
+        while (t < cloudFallTime)
         {
-            t += Time.deltaTime * (Time.timeScale / meteorFallTime);
+            t += Time.deltaTime * (Time.timeScale / cloudFallTime);
             transform.position = Vector3.Lerp(transform.position, attackPoint, t);
             yield return null;
         }
@@ -80,5 +79,5 @@ public class Meteor : MonoBehaviour
         }
         Destroy(attackPointImage);
         Destroy(gameObject);
-    }   
+    }
 }
