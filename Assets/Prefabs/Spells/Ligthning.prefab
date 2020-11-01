@@ -9,6 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 686770113651835}
+  - component: {fileID: 1544457867577078880}
+  - component: {fileID: 8882852233866000205}
+  - component: {fileID: 2301640545987123573}
+  - component: {fileID: 7493594632438078039}
   m_Layer: 0
   m_Name: Ligthning
   m_TagString: Untagged
@@ -31,6 +35,73 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1544457867577078880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686770113651834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56ff42be406f3864badc05ca183dac71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPointImagePrefab: {fileID: 7942690849524181556, guid: 8cd6d8e3f21676846a6f59b9ab3c104f, type: 3}
+  attackPoint: {x: 0, y: 0, z: 0}
+  attackPointOffset: {x: 0, y: 20, z: 0}
+  mesh: {fileID: 3469762333532678724}
+  waitBeforeFallTime: 1
+  cloudFallTime: 2
+  collider: {fileID: 8882852233866000205}
+  disappearDuration: 1
+  startDisappearAfter: 5
+  disappearPos: {x: 0, y: 10, z: 0}
+  impactPrefab: {fileID: 6160844172899152213, guid: ace3cac363bf0e448acd1c96e17ed7d3, type: 3}
+--- !u!65 &8882852233866000205
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686770113651834}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05, y: 0.1, z: 0.05}
+  m_Center: {x: 0, y: 0.03, z: -0.01}
+--- !u!54 &2301640545987123573
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686770113651834}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &7493594632438078039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686770113651834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffa2ea1fda1b97f48a0775863bd30ae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySelf: {fileID: 0}
+  damageAmount: 10
+  damageInterval: 1
 --- !u!1 &686770956928180
 GameObject:
   m_ObjectHideFlags: 0
@@ -9682,7 +9753,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919606566032883547}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.08, z: 0}
+  m_LocalPosition: {x: 0, y: 0.08, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 686771280662713}

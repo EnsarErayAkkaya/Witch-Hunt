@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Lightning : MonoBehaviour
 {
+    public HeartCreator heartCreator;
     public GameObject attackPointImagePrefab;
     private GameObject attackPointImage;
     private Damager damager;
@@ -16,14 +17,11 @@ public class Lightning : MonoBehaviour
     public float disappearDuration;
     public float startDisappearAfter;
     public Vector3 disappearPos;
-    public GameObject smokeParticle;
     public GameObject impactPrefab;
-
-    private void Start() {
-        damager = GetComponent<Damager>();
-    }
     public void Set(Vector3 attackPoint)
     {
+        damager = GetComponent<Damager>();
+        heartCreator = FindObjectOfType<HeartCreator>();
         this.attackPoint = attackPoint;
         
         attackPointImage = Instantiate(attackPointImagePrefab);
@@ -31,12 +29,12 @@ public class Lightning : MonoBehaviour
 
         transform.position = attackPoint + attackPointOffset;
 
-        mesh.gameObject.SetActive(true);
         StartCoroutine( Attack() );
     }
     IEnumerator Attack()
     {
         yield return new WaitForSeconds(waitBeforeFallTime);
+        AudioManager.instance.Play("LigthningComing");
         this.attackPoint.y = 0;
         float t = 0;
         while (t < cloudFallTime)
@@ -45,22 +43,19 @@ public class Lightning : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, attackPoint, t);
             yield return null;
         }
+        heartCreator.CreateHeart(attackPoint + Vector3.forward);
+        StartCoroutine( Disappear() );
     }
     private void OnTriggerEnter(Collider other) 
     {
-        if( other.CompareTag("Ground") )
+        if( other.GetComponent<Health>() )
         {
-            GameObject impactVFX = Instantiate(impactPrefab,transform.position,Quaternion.identity);
-            Destroy(impactVFX,3);
-
-           // mesh.mesh = crushedMeteor; // thiis
-
-             Destroy(attackPointImage); // or this 
-            Destroy(gameObject); 
-            collider.enabled = false;
-            StartCoroutine( Disappear() );
+            damager.GiveDamage(other.GetComponent<Health>());
         }
-        else if( other.GetComponent<Health>() )
+    }
+    private void OnTriggerStay(Collider other) 
+    {
+        if( other.GetComponent<Health>() )
         {
             damager.GiveDamage(other.GetComponent<Health>());
         }
@@ -68,15 +63,8 @@ public class Lightning : MonoBehaviour
     IEnumerator Disappear()
     {
         yield return new WaitForSeconds(startDisappearAfter);
-        Destroy(smokeParticle);
-        float t = 0;
-        disappearPos = mesh.transform.position + disappearPos;
-        while(t < disappearDuration)
-        {
-            t += Time.deltaTime / disappearDuration;
-            mesh.transform.position = Vector3.Lerp(mesh.transform.position, disappearPos, t);
-            yield return null;
-        }
+        GameObject impactVFX = Instantiate(impactPrefab,mesh.transform.position,Quaternion.Euler(new Vector3(-90,0,0)));
+        Destroy(impactVFX,3);
         Destroy(attackPointImage);
         Destroy(gameObject);
     }

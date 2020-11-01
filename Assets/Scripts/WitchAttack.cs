@@ -4,58 +4,47 @@ using UnityEngine;
 
 public class WitchAttack : MonoBehaviour
 {
+    public AttackUI attackUI;
     public Player player;
-    public float normalAttackSpeed;
+    public float normalAttackSpeed, noFigthingAttackSpeed;
     float currentAttackSpeed;
     public AttackType[] attackTypes;
     public AttackType nextAttackType;
-    public bool willAttack, cancelAttackTimer;
-    public GameObject meteor,iceShard;
+    public bool willAttack, playerInFight;
+    public GameObject meteor,iceShard,ligthning;
 
     private void Start() 
     {
-        currentAttackSpeed = normalAttackSpeed;
+        attackUI = FindObjectOfType<AttackUI>();
+        player = FindObjectOfType<Player>();
+        ChangeAttackSpeed(false );
         ChooseNextAttack();
         StartCoroutine( AttackRoutine() );
     }
 
     IEnumerator AttackRoutine()
     {
-        float t = 0;
-        while (t < currentAttackSpeed)
-        {
-            if(willAttack)
-            {
-                t += Time.deltaTime;
-            }
-            else if( !willAttack && cancelAttackTimer )
-            {
-                break;
-            }
-            yield return null;
-        }
-        if( !cancelAttackTimer )
-        {
-            Attack();
-        }
-        else
-        {
-            cancelAttackTimer = false;
-        }
+        yield return new WaitForSeconds( currentAttackSpeed );
+        Attack();
     }
     public void AttackCall()
     {
-        Debug.Log("attack!");
-        switch (nextAttackType)
+        if(willAttack)
         {
-            case AttackType.Meteor:
-                MeteorAttack(player.transform.position);
-            break;
-            case AttackType.IceShard:
-                IceAttack(player.transform.position);
-            break;           
+            switch (nextAttackType)
+            {
+                case AttackType.Meteor:
+                    MeteorAttack(player.transform.position);
+                break;
+                case AttackType.IceShard:
+                    IceAttack(player.transform.position);
+                break; 
+                case AttackType.Lightning:
+                    LightiningAttack(player.transform.position);
+                break;           
+            }
         }
-        cancelAttackTimer = false;
+       
         ChooseNextAttack();
     }
     void Attack()
@@ -63,11 +52,29 @@ public class WitchAttack : MonoBehaviour
         AttackCall();
         StartCoroutine( AttackRoutine() );
     }
+    public void ChangeAttackSpeed(bool thereIsEnemy)
+    {
+        if(thereIsEnemy)
+        {
+            currentAttackSpeed = normalAttackSpeed;
+            playerInFight = true;
+        }
+        else
+        {
+            currentAttackSpeed = noFigthingAttackSpeed;
+            playerInFight = false;
+        }
+    }
 
     public void MeteorAttack(Vector3 attackPoint)
     {
         Transform m = Instantiate(meteor).transform;
         m.GetComponent<Meteor>().Set(attackPoint);
+    }
+    public void LightiningAttack(Vector3 attackPoint)
+    {
+        Transform m = Instantiate(ligthning).transform;
+        m.GetComponent<Lightning>().Set(attackPoint);
     }
     public void IceAttack(Vector3 attackPoint)
     {
@@ -77,10 +84,11 @@ public class WitchAttack : MonoBehaviour
     void ChooseNextAttack()
     {
         nextAttackType = attackTypes[Random.Range(0,attackTypes.Length)];
+        attackUI.SetNextAttackImage(nextAttackType);
     }
 }
 
 public enum AttackType
 {
-    Meteor,IceShard
+    Meteor,IceShard,Lightning
 }

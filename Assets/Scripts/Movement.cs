@@ -31,7 +31,10 @@ public class Movement : MonoBehaviour
     public float rollSpeed;
     public float rollDuration;
     public float rollCooldown;
-    public bool canRoll;
+    public bool canRoll, stop;
+    private void Start() {
+        cam = Camera.main;
+    }
     
     ////// -------- ///////    
     private void Update() 
@@ -42,6 +45,7 @@ public class Movement : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if(stop) return;
         controller.Move(moveVector * Time.deltaTime);   
     }
     void MovementAndRotation()

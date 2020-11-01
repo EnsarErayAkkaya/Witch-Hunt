@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa2ea1fda1b97f48a0775863bd30ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mySelf: {fileID: 0}
   damageAmount: 12
   damageInterval: 1
 --- !u!135 &2279947111363513867
@@ -98,8 +99,66 @@ MonoBehaviour:
   meteorFallTime: 2
   collider: {fileID: 2279947111363513867}
   disappearDuration: 1
-  startDisappearAfter: 2
+  startDisappearAfter: 3
   disappearPos: {x: 0, y: -4, z: 0}
+  impactPrefab: {fileID: 2432054265597356534, guid: 8595441040d70b44d9a5cc422be6bb4f, type: 3}
+--- !u!1001 &2373893664558183566
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6227075728990725836}
+    m_Modifications:
+    - target: {fileID: 7817944695578125802, guid: aa7a075b1d3346f4695c92c77697f8f7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.048
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817944695578125802, guid: aa7a075b1d3346f4695c92c77697f8f7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817944695578125802, guid: aa7a075b1d3346f4695c92c77697f8f7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.053
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817944695578125802, guid: aa7a075b1d3346f4695c92c77697f8f7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817944695578125802, guid: aa7a075b1d3346f4695c92c77697f8f7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817944695578125802, guid: aa7a075b1d3346f4695c92c77697f8f7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817944695578125802, guid: aa7a075b1d3346f4695c92c77697f8f7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817944695578125802, guid: aa7a075b1d3346f4695c92c77697f8f7, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817944695578125802, guid: aa7a075b1d3346f4695c92c77697f8f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817944695578125802, guid: aa7a075b1d3346f4695c92c77697f8f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817944695578125802, guid: aa7a075b1d3346f4695c92c77697f8f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7817944695578125805, guid: aa7a075b1d3346f4695c92c77697f8f7, type: 3}
+      propertyPath: m_Name
+      value: Ice_Smoke
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: aa7a075b1d3346f4695c92c77697f8f7, type: 3}
 --- !u!1001 &6227075728990862412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -113,7 +172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 4d7cc98ae5cab2947a8d9fa3c15e4fa8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4d7cc98ae5cab2947a8d9fa3c15e4fa8, type: 3}
       propertyPath: m_LocalPosition.x

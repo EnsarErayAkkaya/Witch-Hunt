@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class IceShard : MonoBehaviour
 {
+    public HeartCreator heartCreator;
     public GameObject attackPointImagePrefab;
     private GameObject attackPointImage;
     private Damager damager;
@@ -15,11 +16,11 @@ public class IceShard : MonoBehaviour
     public float disappearDuration;
     public float startDisappearAfter;
     public Vector3 disappearPos;
-    private void Start() {
-        damager = GetComponent<Damager>();
-    }
+    public GameObject impactPrefab;
     public void Set(Vector3 attackPoint)
     {
+        damager = GetComponent<Damager>();
+        heartCreator = FindObjectOfType<HeartCreator>();
         this.attackPoint = attackPoint;
         
         attackPointImage = Instantiate(attackPointImagePrefab);
@@ -27,13 +28,12 @@ public class IceShard : MonoBehaviour
 
         transform.position = attackPoint + attackPointOffset;
 
-        mesh.gameObject.SetActive(true);
         StartCoroutine( Attack() );
     }
     IEnumerator Attack()
     {
         yield return new WaitForSeconds(waitBeforeFallTime);
-        this.attackPoint.y = 0;
+        this.attackPoint.y = -0.1f;
         float t = 0;
         while (t < meteorFallTime)
         {
@@ -46,8 +46,12 @@ public class IceShard : MonoBehaviour
     {
         if( other.CompareTag("Ground") )
         {
+            GameObject impactVFX = Instantiate(impactPrefab,transform.position,Quaternion.identity);
+            Destroy(impactVFX,3);
+            AudioManager.instance.Play("meteorExplosion");
             collider.enabled = false;
             StartCoroutine( Disappear() );
+            heartCreator.CreateHeart(attackPoint + (Vector3.forward * 2.5f));
         }
         else if( other.GetComponent<Health>() )
         {
@@ -56,6 +60,7 @@ public class IceShard : MonoBehaviour
     }
     IEnumerator Disappear()
     {
+        Destroy(attackPointImage);
         yield return new WaitForSeconds(startDisappearAfter);
         float t = 0;
         disappearPos = mesh.transform.position + disappearPos;
@@ -65,7 +70,7 @@ public class IceShard : MonoBehaviour
             mesh.transform.position = Vector3.Lerp(mesh.transform.position, disappearPos, t);
             yield return null;
         }
-        Destroy(attackPointImage);
+        
         Destroy(gameObject);
     }
 }
